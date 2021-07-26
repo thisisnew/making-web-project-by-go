@@ -1,7 +1,7 @@
 package main
 
 import (
-	"making-web-project-by-go/web5/myapp"
+	"making-web-project-by-go/web6/myapp"
 	"net/http"
 )
 
