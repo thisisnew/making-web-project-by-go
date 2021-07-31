@@ -6,6 +6,10 @@ import (
 	"net/http"
 )
 
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/todo.html", http.StatusTemporaryRedirect)
+}
+
 func main() {
 	m := app.MakeHandler()
 	n := negroni.Classic()
