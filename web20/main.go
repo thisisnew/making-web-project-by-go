@@ -14,7 +14,7 @@ func main() {
 	m := app.MakeHandler("./test.db")
 	defer m.Close()
 	n := negroni.Classic()
-	n.Use(negroni.NewStatic(http.Dir("web16/public")))
+	n.Use(negroni.NewStatic(http.Dir("web20/public")))
 	n.UseHandler(m)
 
 	http.ListenAndServe(":3000", n)
