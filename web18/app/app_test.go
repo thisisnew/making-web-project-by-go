@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	"making-web-project-by-go/web18/model"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -19,7 +20,7 @@ func TestTodos(t *testing.T) {
 	res, err := http.PostForm(ts.URL+"/todos", url.Values{"name": {"Test todo"}})
 	assert.NoError(err)
 	assert.Equal(http.StatusCreated, res.StatusCode)
-	var todo Todo
+	var todo model.Todo
 	err = json.NewDecoder(res.Body).Decode(&todo)
 	assert.NoError(err)
 	assert.Equal(todo.Name, "Test todo")
@@ -36,7 +37,7 @@ func TestTodos(t *testing.T) {
 	res, err = http.Get(ts.URL + "/todos")
 	assert.NoError(err)
 	assert.Equal(http.StatusOK, res.StatusCode)
-	todos := []*Todo{}
+	todos := []*model.Todo{}
 	err = json.NewDecoder(res.Body).Decode(&todos)
 	assert.NoError(err)
 	assert.Equal(len(todos), 2)
@@ -56,7 +57,7 @@ func TestTodos(t *testing.T) {
 	res, err = http.Get(ts.URL + "/todos")
 	assert.NoError(err)
 	assert.Equal(http.StatusOK, res.StatusCode)
-	todos = []*Todo{}
+	todos = []*model.Todo{}
 	err = json.NewDecoder(res.Body).Decode(&todos)
 	assert.NoError(err)
 	assert.Equal(len(todos), 2)
@@ -73,7 +74,7 @@ func TestTodos(t *testing.T) {
 	res, err = http.Get(ts.URL + "/todos")
 	assert.NoError(err)
 	assert.Equal(http.StatusOK, res.StatusCode)
-	todos = []*Todo{}
+	todos = []*model.Todo{}
 	err = json.NewDecoder(res.Body).Decode(&todos)
 	assert.NoError(err)
 	assert.Equal(len(todos), 1)
