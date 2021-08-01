@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -32,6 +33,50 @@ func getTodoListHandler(w http.ResponseWriter, r *http.Request) {
 	rd.JSON(w, http.StatusOK, list)
 }
 
+func addTodoHandler(w http.ResponseWriter, r *http.Request) {
+	name := r.FormValue("name")
+	id := len(todoMap) + 1
+	todo := &Todo{
+		ID:        id,
+		Name:      name,
+		Completed: false,
+		CreatedAt: time.Time{},
+	}
+	todoMap[id] = todo
+	rd.JSON(w, http.StatusOK, todo)
+}
+
+type Success struct {
+	Success bool `json:"success"`
+}
+
+func removeTodoHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
+
+	if _, ok := todoMap[id]; ok {
+		delete(todoMap, id)
+		rd.JSON(w, http.StatusOK, Success{Success: true})
+	} else {
+		rd.JSON(w, http.StatusOK, Success{Success: false})
+	}
+
+}
+
+func completeTodoHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.Atoi(vars["id"])
+	complete := r.FormValue("complete") == "true"
+
+	if todo, ok := todoMap[id]; ok {
+		todo.Completed = complete
+		rd.JSON(w, http.StatusOK, Success{Success: true})
+	} else {
+		rd.JSON(w, http.StatusOK, Success{Success: false})
+	}
+
+}
+
 func addTestTodos() {
 	todoMap[1] = &Todo{1, "Buy a milk", false, time.Now()}
 	todoMap[2] = &Todo{2, "Exercise", true, time.Now()}
@@ -44,6 +89,9 @@ func MakeHandler() http.Handler {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/todos", getTodoListHandler).Methods(http.MethodGet)
+	r.HandleFunc("/todos", addTodoHandler).Methods(http.MethodPost)
+	r.HandleFunc("/todos/{id:[0-9]+}", removeTodoHandler).Methods(http.MethodDelete)
+	r.HandleFunc("/complete-todo/{id:[0-9]+}", completeTodoHandler).Methods(http.MethodGet)
 	r.HandleFunc("/", indexHandler)
 
 	return r
