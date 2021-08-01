@@ -13,7 +13,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	m := app.MakeHandler()
 	n := negroni.Classic()
-	n.Use(negroni.NewStatic(http.Dir("web16/public")))
+	n.Use(negroni.NewStatic(http.Dir("web17/public")))
 	n.UseHandler(m)
 
 	http.ListenAndServe(":3000", n)
