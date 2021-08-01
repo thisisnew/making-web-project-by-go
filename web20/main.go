@@ -11,7 +11,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	m := app.MakeHandler()
+	m := app.MakeHandler("./test.db")
 	defer m.Close()
 	n := negroni.Classic()
 	n.Use(negroni.NewStatic(http.Dir("web16/public")))
