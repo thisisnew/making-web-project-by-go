@@ -1,11 +1,10 @@
 package app
 
 import (
-	"net/http"
-	"time"
-
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
+	"net/http"
+	"time"
 )
 
 var rd *render.Render
@@ -25,6 +24,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func getTodoListHandler(w http.ResponseWriter, r *http.Request) {
 	list := []*Todo{}
+	addTestTodos()
+
 	for _, v := range todoMap {
 		list = append(list, v)
 	}
@@ -34,17 +35,15 @@ func getTodoListHandler(w http.ResponseWriter, r *http.Request) {
 func addTestTodos() {
 	todoMap[1] = &Todo{1, "Buy a milk", false, time.Now()}
 	todoMap[2] = &Todo{2, "Exercise", true, time.Now()}
-	todoMap[3] = &Todo{3, "Home work", false, time.Now()}
+	todoMap[3] = &Todo{3, "Homework", false, time.Now()}
 }
 
 func MakeHandler() http.Handler {
 	todoMap = make(map[int]*Todo)
-	addTestTodos()
-
 	rd = render.New()
 	r := mux.NewRouter()
 
-	r.HandleFunc("/todos", getTodoListHandler).Methods("GET")
+	r.HandleFunc("/todos", getTodoListHandler).Methods(http.MethodGet)
 	r.HandleFunc("/", indexHandler)
 
 	return r
