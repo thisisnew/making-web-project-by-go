@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	"making-web-project-by-go/web18/model"
+	"making-web-project-by-go/web19/model"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
