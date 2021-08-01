@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/urfave/negroni"
-	"making-web-project-by-go/web16/app"
+	"making-web-project-by-go/web17/app"
 	"net/http"
 )
 
