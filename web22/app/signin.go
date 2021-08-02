@@ -11,6 +11,7 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -23,8 +24,8 @@ type GoogleUserId struct {
 
 var googleOauthConfig = oauth2.Config{
 	RedirectURL:  "http://localhost:3000/auth/google/callback",
-	ClientID:     "403707068768-svdt3igcgjss1npahklfr4d2rgh77v8g.apps.googleusercontent.com",
-	ClientSecret: "sPAe6uT32U77Fi7g-HUXBFfZ",
+	ClientID:     os.Getenv("GOOGLE_CLIENT_ID"),
+	ClientSecret: os.Getenv("GOOGLE_SECRET_KEY"),
 	Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email"},
 	Endpoint:     google.Endpoint,
 }

@@ -7,12 +7,12 @@ import (
 	"github.com/urfave/negroni"
 	"making-web-project-by-go/web22/model"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 )
 
-//var store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
-var store = sessions.NewCookieStore([]byte("abcd"))
+var store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
 var rd *render.Render = render.New()
 
 type AppHandler struct {
