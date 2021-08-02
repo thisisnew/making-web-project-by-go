@@ -8,6 +8,7 @@ require (
 	github.com/gorilla/context v1.1.1 // indirect
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/pat v1.0.1
+	github.com/gorilla/sessions v1.2.1 // indirect
 	github.com/mattn/go-sqlite3 v1.14.8
 	github.com/stretchr/testify v1.7.0
 	github.com/tuckersGo/goWeb v0.0.0-20200531032145-28d77cfd0a29
